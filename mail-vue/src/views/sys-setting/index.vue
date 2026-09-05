@@ -1243,7 +1243,9 @@ function resetNoticeForm() {
   noticeForm.notice = setting.value.notice
   noticeForm.noticeContent = setting.value.noticeContent
   noticeForm.noticeDuration = setting.value.noticeDuration
-  noticeForm.noticeTitle = setting.value.noticeTitle
+  noticeForm.noticeTitle = !setting.value.noticeTitle || setting.value.noticeTitle === 'Cloud Mail'
+    ? 'Panda Mail'
+    : setting.value.noticeTitle
   noticeForm.noticePosition = setting.value.noticePosition
   noticeForm.noticeType = setting.value.noticeType
   noticeForm.noticeOffset = setting.value.noticeOffset

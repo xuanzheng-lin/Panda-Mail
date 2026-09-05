@@ -35,7 +35,7 @@ watch(() => uiStore.changeNotice, () => {
   let data = {
     notice: settings.notice,
     noticeWidth: settings.noticeWidth,
-    noticeTitle: settings.noticeTitle,
+    noticeTitle: resolveNoticeTitle(settings.noticeTitle),
     noticeContent: settings.noticeContent,
     noticeType: settings.noticeType,
     noticeDuration: settings.noticeDuration,
@@ -70,7 +70,7 @@ function showNotice(data) {
   document.head.appendChild(style);
 
   elNotification = ElNotification({
-    title: data.noticeTitle,
+    title: resolveNoticeTitle(data.noticeTitle),
     message: `<div style="width: 100%;height: 100%;">${data.noticeContent}</div>`,
     type: data.noticeType === 'none' ? '' : data.noticeType,
     duration: data.noticeDuration,
@@ -79,6 +79,10 @@ function showNotice(data) {
     dangerouslyUseHTMLString: true,
     customClass: 'custom-notice'
   })
+}
+
+function resolveNoticeTitle(title) {
+  return !title || title === 'Cloud Mail' ? 'Panda Mail' : title
 }
 
 onMounted(() => {

@@ -862,6 +862,9 @@ function submitRegister() {
   height: min(86vw, 980px);
   border-radius: 58% 42% 48% 52% / 45% 55% 45% 55%;
   background: var(--panda-leaf);
+  transform-origin: 54% 48%;
+  animation: panda-canopy-breathe 18s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+  will-change: transform, border-radius;
 }
 
 .login-canvas::after {
@@ -884,6 +887,25 @@ function submitRegister() {
 
 #login-box.has-custom-background .login-canvas::before {
   background: rgba(229, 243, 235, 0.8);
+}
+
+@keyframes panda-canopy-breathe {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(-3deg) scale(1);
+    border-radius: 58% 42% 48% 52% / 45% 55% 45% 55%;
+  }
+
+  50% {
+    transform: translate3d(6%, 3%, 0) rotate(3deg) scale(1.07);
+    border-radius: 48% 52% 58% 42% / 54% 42% 58% 46%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .login-canvas::before {
+    animation: none;
+  }
 }
 
 @media (max-width: 960px) {

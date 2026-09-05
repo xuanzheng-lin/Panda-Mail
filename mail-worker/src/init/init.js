@@ -303,6 +303,7 @@ const dbInit = {
 
 		await Promise.all(promises);
 		await c.env.db.prepare(`UPDATE setting SET notice_content = ? WHERE notice_content = '';`).bind(noticeContent).run();
+		await c.env.db.prepare(`UPDATE setting SET notice_title = 'Panda Mail' WHERE notice_title = 'Cloud Mail';`).run();
 		try {
 			await c.env.db.batch([
 				c.env.db.prepare(`DROP INDEX IF EXISTS idx_account_email`),
