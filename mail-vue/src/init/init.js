@@ -35,7 +35,7 @@ export async function init() {
         setting = s;
         settingStore.settings = setting;
         settingStore.domainList = setting.domainList;
-        document.title = setting.title;
+        document.title = resolveSiteTitle(setting.title);
 
         if (user) {
             accountStore.currentAccountId = user.account.accountId;
@@ -52,6 +52,10 @@ export async function init() {
         setting = await websiteConfig();
         settingStore.settings = setting;
         settingStore.domainList = setting.domainList;
-        document.title = setting.title;
+        document.title = resolveSiteTitle(setting.title);
     }
+}
+
+function resolveSiteTitle(title) {
+    return !title || title === 'Cloud Mail' ? 'Panda Mail' : title;
 }

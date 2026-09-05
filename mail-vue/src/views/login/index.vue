@@ -1,16 +1,17 @@
 <template>
-  <div id="login-box" :style=" background ? 'background: var(--el-bg-color)' : ''" v-loading="oauthLoading" element-loading-text="登录中...">
-    <div id="background-wrap" v-if="!settingStore.settings.background">
-      <div class="x1 cloud"></div>
-      <div class="x2 cloud"></div>
-      <div class="x3 cloud"></div>
-      <div class="x4 cloud"></div>
-      <div class="x5 cloud"></div>
+  <div id="login-box" :class="{ 'has-custom-background': Boolean(settingStore.settings.background) }" v-loading="oauthLoading" element-loading-text="登录中...">
+    <div class="login-canvas" aria-hidden="true">
+      <div v-if="settingStore.settings.background" class="custom-background" :style="background"></div>
     </div>
-    <div v-else :style="background"></div>
+    <section class="brand-panel" aria-label="Panda Mail">
+      <div class="brand-panel-inner">
+        <img class="brand-art" src="/panda-mail-login.png" alt="Panda Mails" />
+        <p class="brand-message">{{ brandMessage }}</p>
+      </div>
+    </section>
     <div class="form-wrapper">
       <div class="container">
-        <span class="form-title">{{ settingStore.settings.title }}</span>
+        <h1 class="form-title">Panda Mail</h1>
         <span class="form-desc" v-if="show === 'login'">{{ $t('loginTitle') }}</span>
         <span class="form-desc" v-else>{{ $t('regTitle') }}</span>
         <div v-show="show === 'login'">
@@ -145,7 +146,7 @@
       </div>
     </el-dialog>
     <a v-show="settingStore.settings.projectLink" class="github" href="https://github.com/maillab/cloud-mail">
-      <Icon icon="mingcute:github-line" color="#1890ff" width="20" height="20" />
+      <Icon icon="mingcute:github-line" width="20" height="20" />
     </a>
   </div>
 </template>
@@ -180,6 +181,10 @@ const bindLoading = ref(false)
 const oauthLoading = ref(false);
 const showBindForm = ref(false);
 const show = ref('login')
+const brandMessage = computed(() => settingStore.lang === 'zh'
+  ? '收好每一封重要的邮件。'
+  : 'A calmer home for your important mail.'
+)
 
 const oauthKeys = ['linuxdo', 'github', 'google']
 
@@ -462,7 +467,7 @@ function refreshWebsiteConfig() {
     if (!suffix.value && setting.domainList.length > 0) {
       suffix.value = setting.domainList[0]
     }
-    document.title = setting.title
+    document.title = !setting.title || setting.title === 'Cloud Mail' ? 'Panda Mail' : setting.title
   }).catch(e => {
     console.error(e)
   })
@@ -632,89 +637,123 @@ function submitRegister() {
 
 <style lang="scss" scoped>
 
+.brand-panel {
+  position: relative;
+  z-index: 1;
+  min-width: 0;
+  display: grid;
+  align-items: center;
+  padding: clamp(44px, 8vw, 120px);
+}
+
+.brand-panel-inner {
+  width: min(100%, 700px);
+  margin: 0 auto;
+}
+
+.brand-art {
+  width: 100%;
+  max-width: 680px;
+  filter: drop-shadow(0 18px 26px rgba(23, 58, 43, 0.1));
+}
+
+.brand-message {
+  width: min(100%, 430px);
+  margin-top: clamp(24px, 4vw, 44px);
+  padding-left: 2px;
+  color: var(--panda-slate);
+  font-size: 15px;
+  letter-spacing: 0.01em;
+}
+
 .form-wrapper {
-  position: fixed;
-  right: 0;
-  height: 100%;
-  z-index: 10;
+  position: relative;
+  z-index: 1;
+  min-width: 0;
+  min-height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  @media (max-width: 767px) {
-    width: 100%;
-  }
+  padding: clamp(36px, 7vw, 96px);
+  background: v-bind(loginOpacity);
+  box-shadow: -18px 0 46px rgba(23, 58, 43, 0.07);
 }
 
 .container {
-  background: v-bind(loginOpacity);
-  padding-left: 40px;
-  padding-right: 40px;
+  width: min(100%, 416px);
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 450px;
-  height: 100%;
-  border-left: 1px solid var(--login-border);
-  box-shadow: var(--el-box-shadow-light);
-  @media (max-width: 1024px) {
-    padding: 20px 18px;
-    width: 384px;
-    margin-left: 18px;
-  }
-  @media (max-width: 767px) {
-    border: 1px solid var(--login-border);
-    padding: 20px 18px;
-    border-radius: 6px;
-    height: fit-content;
-    width: 100%;
-    margin-right: 18px;
-    margin-left: 18px;
-  }
 
   .btn {
-    height: 36px;
+    min-height: 44px;
     width: 100%;
-    border-radius: 6px;
+    border-radius: 12px;
+    font-weight: 650;
+    letter-spacing: 0.01em;
+  }
+
+  .btn.el-button--primary {
+    box-shadow: 0 10px 20px rgba(25, 117, 81, 0.18);
+  }
+
+  .btn:not(.el-button--primary) {
+    border-color: var(--el-border-color);
+    background: transparent;
   }
 
   .form-desc {
-    margin-top: 5px;
-    margin-bottom: 18px;
+    margin-top: 8px;
+    margin-bottom: 28px;
     color: var(--form-desc-color);
+    line-height: 1.65;
   }
 
   .form-title {
-    font-weight: bold;
-    font-size: 22px !important;
+    color: var(--el-text-color-primary);
+    font-size: clamp(28px, 3vw, 34px);
+    font-weight: 700;
+    letter-spacing: -0.045em;
+    line-height: 1.05;
   }
 
   .switch {
-    margin-top: 20px;
+    margin-top: 24px;
     text-align: center;
+    color: var(--form-desc-color);
 
     span {
       color: var(--login-switch-color);
       cursor: pointer;
+      font-weight: 650;
     }
   }
 
   :deep(.el-input__wrapper) {
-    border-radius: 6px;
-    background: var(--el-bg-color);
+    min-height: 46px;
+    padding: 1px 14px;
+    border-radius: 12px;
+    background: var(--el-fill-color-blank);
+    box-shadow: 0 0 0 1px var(--el-border-color) inset;
+    transition: box-shadow 160ms ease, background-color 160ms ease;
+  }
+
+  :deep(.el-input__wrapper.is-focus) {
+    background: var(--el-bg-color-overlay);
+    box-shadow: 0 0 0 2px rgba(25, 117, 81, 0.22);
   }
 
   .email-input :deep(.el-input__wrapper) {
-    border-radius: 6px 0 0 6px;
-    background: var(--el-bg-color);
+    border-radius: 12px 0 0 12px;
   }
 
   .el-input {
-    height: 38px;
+    min-height: 46px;
     width: 100%;
-    margin-bottom: 18px;
+    margin-bottom: 14px;
 
     :deep(.el-input__inner) {
-      height: 36px;
+      height: 44px;
     }
   }
 }
@@ -745,27 +784,28 @@ function submitRegister() {
 
 .github {
   position: fixed;
-  width: 35px;
-  height: 35px;
+  width: 36px;
+  height: 36px;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 50%;
-  background: var(--el-bg-color);
-  bottom: 10px;
-  right: 10px;
+  border-radius: 10px;
+  color: var(--el-color-primary);
+  background: var(--el-bg-color-overlay);
+  bottom: 22px;
+  right: 22px;
   z-index: 1000;
-  border: 1px solid var(--el-border-color-light);
-  box-shadow: var(--el-box-shadow-light);
+  border: 1px solid var(--el-border-color);
+  box-shadow: 0 8px 22px rgba(23, 58, 43, 0.1);
   cursor: pointer;
 }
 
 :deep(.el-input-group__append) {
   padding: 0 !important;
-  padding-left: 8px !important;
-  padding-right: 4px !important;
-  background: var(--el-bg-color);
-  border-radius: 0 8px 8px 0;
+  padding-left: 10px !important;
+  padding-right: 8px !important;
+  background: var(--el-fill-color-blank);
+  border-radius: 0 12px 12px 0;
 }
 
 :deep(.el-button+.el-button) {
@@ -796,88 +836,107 @@ function submitRegister() {
 
 
 #login-box {
-  background: linear-gradient(to bottom, #2980b9, #6dd5fa, #fff);
-  font: 100% Arial, sans-serif;
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
-  display: grid;
-  grid-template-columns: 1fr;
-}
-
-
-#background-wrap {
-  height: 100%;
-  z-index: 0;
-}
-
-@keyframes animateCloud {
-  0% {
-    margin-left: -500px;
-  }
-
-  100% {
-    margin-left: 100%;
-  }
-}
-
-.x1 {
-  animation: animateCloud 30s linear infinite;
-  transform: scale(0.65);
-}
-
-.x2 {
-  animation: animateCloud 15s linear infinite;
-  transform: scale(0.3);
-}
-
-.x3 {
-  animation: animateCloud 25s linear infinite;
-  transform: scale(0.5);
-}
-
-.x4 {
-  animation: animateCloud 13s linear infinite;
-  transform: scale(0.4);
-}
-
-.x5 {
-  animation: animateCloud 20s linear infinite;
-  transform: scale(0.55);
-}
-
-.cloud {
-  background: linear-gradient(to bottom, #fff 5%, #f1f1f1 100%);
-  border-radius: 100px;
-  box-shadow: 0 8px 5px rgba(0, 0, 0, 0.1);
-  height: 120px;
-  width: 350px;
   position: relative;
+  isolation: isolate;
+  min-height: 100%;
+  background: var(--panda-mist);
+  display: grid;
+  grid-template-columns: minmax(0, 1.14fr) minmax(380px, 0.86fr);
+  overflow: hidden;
 }
 
-.cloud:after,
-.cloud:before {
+.login-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  background: var(--panda-mist);
+}
+
+.login-canvas::before {
   content: "";
   position: absolute;
-  background: #fff;
-  z-index: -1;
+  top: -34%;
+  left: -16%;
+  width: min(70vw, 940px);
+  height: min(86vw, 980px);
+  border-radius: 58% 42% 48% 52% / 45% 55% 45% 55%;
+  background: var(--panda-leaf);
 }
 
-.cloud:after {
-  border-radius: 100px;
-  height: 100px;
-  left: 50px;
-  top: -50px;
-  width: 100px;
+.login-canvas::after {
+  content: "";
+  position: absolute;
+  right: min(34vw, 460px);
+  bottom: -42vw;
+  width: min(74vw, 960px);
+  height: min(74vw, 960px);
+  border: 1px solid var(--panda-line);
+  border-radius: 50%;
 }
 
-.cloud:before {
-  border-radius: 200px;
-  height: 180px;
-  width: 180px;
-  right: 50px;
-  top: -90px;
+.custom-background {
+  position: absolute;
+  inset: 0;
+  opacity: 0.18;
+  filter: saturate(0.7) contrast(0.92);
+}
+
+#login-box.has-custom-background .login-canvas::before {
+  background: rgba(229, 243, 235, 0.8);
+}
+
+@media (max-width: 960px) {
+  #login-box {
+    grid-template-columns: minmax(0, 1fr) minmax(356px, 0.82fr);
+  }
+
+  .brand-panel,
+  .form-wrapper {
+    padding: 40px;
+  }
+}
+
+@media (max-width: 767px) {
+  #login-box {
+    min-height: 100%;
+    grid-template-columns: 1fr;
+    grid-template-rows: minmax(176px, 31vh) auto;
+    overflow-y: auto;
+  }
+
+  .brand-panel {
+    padding: 30px 28px 22px;
+    align-items: end;
+  }
+
+  .brand-panel-inner {
+    width: min(100%, 510px);
+  }
+
+  .brand-art {
+    max-width: 510px;
+  }
+
+  .brand-message {
+    display: none;
+  }
+
+  .form-wrapper {
+    min-height: auto;
+    align-items: flex-start;
+    padding: 40px 24px 70px;
+    box-shadow: 0 -1px 0 var(--panda-line);
+  }
+
+  .container {
+    width: min(100%, 480px);
+  }
+
+  .github {
+    bottom: 14px;
+    right: 14px;
+  }
 }
 
 </style>

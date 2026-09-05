@@ -228,7 +228,7 @@ function switchDark(nextIsDark, root) {
   root.setAttribute('class', nextIsDark ? 'dark' : '')
   const metaTag = document.getElementById('theme-color-meta');
   const isMobile =  !window.matchMedia("(pointer: fine) and (hover: hover)").matches;
-  metaTag.setAttribute('content', nextIsDark ? (isMobile ? '#141414' : '#000000') : (isMobile ? '#191A23' : '#F1F1F1'));
+  metaTag.setAttribute('content', nextIsDark ? '#101B15' : '#F4F8F5');
   uiStore.dark = nextIsDark
 }
 
@@ -378,10 +378,10 @@ function formatName(email) {
   .writer {
     width: 34px;
     height: 34px;
-    border-radius: 50%;
+    border-radius: 10px;
     color: #ffffff;
-    background: linear-gradient(135deg, #1890ff, #3a80dd);
-    transition: all 0.3s ease;
+    background: var(--el-color-primary);
+    transition: transform 160ms ease, background-color 160ms ease;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -422,7 +422,7 @@ function formatName(email) {
     align-self: center;
     width: 30px;
     height: 30px;
-    border-radius: 4px;
+    border-radius: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -452,15 +452,15 @@ function formatName(email) {
     cursor: pointer;
 
     .avatar-text {
-      background: var(--el-bg-color);
-      color: var(--el-text-color-primary);
+      background: var(--el-color-primary-light-9);
+      color: var(--el-color-primary);
       height: 30px;
       width: 30px;
       display: flex;
       justify-content: center;
       align-items: center;
-      border-radius: 8px;
-      border: 1px solid var(--dark-border);
+      border-radius: 10px;
+      border: 1px solid var(--el-color-primary-light-7);
     }
 
     .setting-icon {

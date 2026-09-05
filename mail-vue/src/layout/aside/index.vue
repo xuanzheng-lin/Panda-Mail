@@ -2,8 +2,8 @@
   <el-scrollbar class="scroll">
     <div>
       <div class="title" >
-        <Icon icon="mdi:email-outline" width="24" height="24" />
-        <div>{{settingStore.settings.title}}</div>
+        <img class="brand-mark" src="/favicon.ico" alt="" />
+        <span>Panda Mail</span>
       </div>
       <el-menu :collapse="false" text-color="#fff" active-text-color="#fff" style="margin-top: 10px">
         <el-menu-item @click="router.push({name: 'email'})" index="email"
@@ -73,9 +73,7 @@
 import router from "@/router/index.js";
 import { useRoute } from "vue-router";
 import {Icon} from "@iconify/vue";
-import {useSettingStore} from "@/store/setting.js";
 
-const settingStore = useSettingStore();
 const route = useRoute();
 
 </script>
@@ -83,66 +81,55 @@ const route = useRoute();
 <style lang="scss" scoped>
 
 .title {
-  margin: 15px 10px;
-  height: 45px;
-  border-radius: 6px;
+  margin: 20px 18px 22px;
+  height: 42px;
   display: flex;
-  position: relative;
-  font-size: 16px;
-  font-weight: bold;
+  min-width: 0;
+  font-size: 18px;
+  font-weight: 700;
   align-items: center;
-  justify-content: center;
-  gap: 5px;
-  color: #ffffff;
-  background: linear-gradient(135deg, #1890ff, #3a80dd);
-  transition: all 0.3s ease;
-  max-width: 240px;
-  padding: 0 10px;
-  > div {
+  gap: 10px;
+  color: #f2f8f4;
+  letter-spacing: -0.025em;
+
+  span {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    max-width: calc(240px - 20px - 30px);
   }
-
-  :deep(.el-icon) {
-    flex-shrink: 0;
-    font-size: 20px;
-  }
-
-  .user-right-icon {
-    align-self: center;
-    position: absolute;
-    font-size: 12px;
-    right: 8px;
-    color: #ffffff;
-  }
-
 }
 
+.brand-mark {
+  flex: 0 0 auto;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  object-fit: cover;
+}
 
 .manage-title {
-  margin-top: 10px;
-  padding-left: 20px;
-  color: #fff;
+  margin: 26px 18px 8px;
+  padding-left: 4px;
+  color: #b7d2c0;
+  font-size: 12px;
+  font-weight: 600;
 }
 
 .el-menu-item {
-  margin: 3px 10px !important;
-  border-radius: 6px;
-  height: 36px;
-  padding: 10px !important;
+  margin: 3px 12px !important;
+  border-radius: 10px;
+  height: 40px;
+  padding: 10px 12px !important;
 }
 
 .choose-item {
-  font-weight: 400;
+  font-weight: 600;
   background: var(--aside-menu-active-background) !important;
-  backdrop-filter: blur(4px);
 }
 
 @media (hover: hover) {
   .el-menu-item:hover {
-    background: rgba(255, 255, 255, 0.08) !important;
+    background: rgba(255, 255, 255, 0.1) !important;
   }
 }
 

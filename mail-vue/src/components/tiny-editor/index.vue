@@ -97,8 +97,8 @@ function initEditor() {
     skin: `${uiStore.dark ? 'oxide-dark' : 'oxide'}`,
     content_css: `/tinymce/css/index.css,${uiStore.dark ? 'dark' : 'default'}`,
     content_style: `:root {
-         --scrollbar-track-color: ${uiStore.dark ? '#141414' : '#FFFFFF'};
-         --scrollbar-thumb-color: ${uiStore.dark ? '#8D9095' : '#A8ABB2'};
+         --scrollbar-track-color: ${uiStore.dark ? '#17251E' : '#FBFCFA'};
+         --scrollbar-thumb-color: ${uiStore.dark ? '#799286' : '#A8B9AE'};
     }`,
     plugins: 'link image advlist lists  emoticons fullscreen  table preview code',
     toolbar: 'bold emoticons forecolor backcolor italic fontsize | alignleft aligncenter alignright alignjustify | outdent indent |  bullist numlist | link image  | table code preview fullscreen',

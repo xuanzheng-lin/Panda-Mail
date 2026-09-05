@@ -19,15 +19,15 @@ export default defineConfig(({mode}) => {
             VitePWA({
                 injectRegister: 'script-defer',
                 manifest: {
-                    name: env.VITE_PWA_NAME,
-                    short_name: env.VITE_PWA_NAME,
-                    background_color: '#FFFFFF',
-                    theme_color: '#FFFFFF',
+                    name: env.VITE_PWA_NAME || 'Panda Mail',
+                    short_name: env.VITE_PWA_NAME || 'Panda Mail',
+                    background_color: '#FBFCFA',
+                    theme_color: '#197551',
                     icons: [
                         {
-                            src: 'mail-pwa.png',
-                            sizes: '192x192',
-                            type: 'image/png',
+                            src: 'favicon.ico',
+                            sizes: '64x64',
+                            type: 'image/x-icon',
                         }
                     ],
                 },
