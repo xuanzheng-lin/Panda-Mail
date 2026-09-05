@@ -2,7 +2,7 @@
   <el-scrollbar class="scroll">
     <div>
       <div class="title" >
-        <img class="brand-mark" src="/favicon.ico" alt="" />
+        <img class="brand-mark" src="/panda-mail-logo.png" alt="" />
         <span>Panda Mail</span>
       </div>
       <el-menu :collapse="false" text-color="#fff" active-text-color="#fff" style="margin-top: 10px">

@@ -25,9 +25,9 @@ export default defineConfig(({mode}) => {
                     theme_color: '#197551',
                     icons: [
                         {
-                            src: 'favicon.ico',
-                            sizes: '64x64',
-                            type: 'image/x-icon',
+                            src: 'panda-mail-logo.png',
+                            sizes: '1254x1254',
+                            type: 'image/png',
                         }
                     ],
                 },
