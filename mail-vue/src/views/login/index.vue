@@ -145,7 +145,7 @@
         </el-button>
       </div>
     </el-dialog>
-    <a v-show="settingStore.settings.projectLink" class="github" href="https://github.com/maillab/cloud-mail">
+    <a v-show="settingStore.settings.projectLink" class="github" href="https://github.com/xuanzheng-lin/Panda-Mail/tree/custom">
       <Icon icon="mingcute:github-line" width="20" height="20" />
     </a>
   </div>
