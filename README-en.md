@@ -1,6 +1,6 @@
 <p align="center">
-    <img src="doc/demo/logo.png" width="80px" />
-    <h1 align="center">Cloud Mail</h1>
+    <img src="doc/demo/panda-mail-logo.png" width="80px" />
+    <h1 align="center">Panda Mail</h1>
     <p align="center">A simple, responsive email service designed to run on Cloudflare Workers 🎉</p> 
     <p align="center">
        <a href="/README.md" style="margin-left: 5px">简体中文</a> | English 
@@ -29,6 +29,7 @@
     </p>
 </p>
 
+
 ## Description
 With only one domain, you can create multiple different email addresses, similar to major email platforms. This project can be deployed on Cloudflare Workers to reduce server costs and build your own email service.
 ## Project Showcase
@@ -38,7 +39,7 @@ With only one domain, you can create multiple different email addresses, similar
 
 
 | ![](/doc/demo/demo1.png) | ![](/doc/demo/demo2.png) |
-|--------------------------|--------------------------|
+| ------------------------ | ------------------------ |
 | ![](/doc/demo/demo3.png) | ![](/doc/demo/demo4.png) |
 
 ## Features
