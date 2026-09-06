@@ -1,20 +1,20 @@
-name: 🚀 Deploy cloud-mail to Cloudflare Workers
+name: 🚀 Deploy panda-mail to Cloudflare Workers
 
 on:
   push:
-    branches: [ main ]
+    branches: [ custom ]
     paths:
       - "mail-worker/**"
       - "mail-vue/**"
   workflow_dispatch:
 
 jobs:
-  Deploy-cloud-mail:
+  Deploy-panda-mail:
     name: 🏗️ Build and Deploy
     runs-on: ubuntu-latest
 
     env:
-      NAME: ${{ secrets.NAME || vars.NAME || 'cloud-mail' }}
+      NAME: ${{ secrets.NAME || vars.NAME || 'panda-mail' }}
       CUSTOM_DOMAIN: ${{ secrets.CUSTOM_DOMAIN || vars.CUSTOM_DOMAIN }}
       DOMAIN: ${{ secrets.DOMAIN || vars.DOMAIN }}
       ADMIN: ${{ secrets.ADMIN || vars.ADMIN }}
